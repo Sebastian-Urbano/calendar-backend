@@ -84,11 +84,19 @@ const loginUser = async (req, res = response) => {
   }
 };
 
-const renewToken = (req, res = response) => {
-  console.log("se require el /");
+const renewToken = async (req, res = response) => {
+  const uid = req.uid;
+  const name = req.name;
+
+  //we need to create another JWT and return this
+  const token = await generateJWT(uid, name);
+
   res.json({
     ok: true,
     msg: "renew",
+    uid,
+    name,
+    token,
   });
 };
 
